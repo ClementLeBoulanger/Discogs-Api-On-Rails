@@ -1,0 +1,34 @@
+<H1>Search Vinyl Album</H1>
+
+<%= form_tag root_path, method: "GET", class:"p-3 form-inline" do %>
+  <%= text_field_tag :query,
+            params[:query],
+            required: true,
+            class: "form-control",
+            placeholder: "Search ..."
+  %>
+  <%=  submit_tag "Search", class:"btn btn-info"%>
+<% end %>
+
+<br>
+
+
+
+
+<%@vinyls.each do |vinyl| %>
+  <p><strong>Vinyl Id : </strong><%= vinyl[:discogs_id] %></p>
+  <p><strong>Artist Name : </strong><%= vinyl[:artist_name] %></p>
+  <%= image_tag vinyl[:cover_url], crop: :fill, height: "200px"%>
+  <p><strong>Label : </strong><%= vinyl[:label_name] %></p>
+  <p><strong>Rating : </strong><%= vinyl[:rating] %></p>
+  <p><strong>Album Title : </strong><%= vinyl[:title] %></p>
+  <p><strong>Date : </strong><%= vinyl[:released] %></p>
+  <p><strong>Genre : </strong><%= vinyl[:genre] %></p>
+  <p><strong>Tracklist : </strong></p>
+  <ul>
+    <% vinyl[:tracks].each do |track| %>
+      <li><%= track[:position] %>. <%= track[:title] %>. <%= track[:duration] %></li>
+    <% end %>
+  </ul>
+
+<% end %>
